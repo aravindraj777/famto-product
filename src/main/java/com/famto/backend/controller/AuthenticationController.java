@@ -1,5 +1,7 @@
 package com.famto.backend.controller;
 
+import com.famto.backend.dto.LoginResponse;
+import com.famto.backend.dto.LoginUserDto;
 import com.famto.backend.dto.RegisterUserDto;
 import com.famto.backend.model.User;
 import com.famto.backend.service.IAuthenticationService;
@@ -25,5 +27,19 @@ public class AuthenticationController {
 
         User registeredUser = authenticationService.signup(registerUserDto);
         return ResponseEntity.ok(registeredUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> authenticate(
+            @RequestBody LoginUserDto loginUserDto){
+
+        User authenticatedUser = authenticationService.authenticate(loginUserDto);
+        String jwtToken = jwtService.generateToken(authenticatedUser);
+        LoginResponse loginResponse = LoginResponse
+                                      .builder()
+                                      .token(jwtToken)
+                                      .expiresIn(jwtService.getExpirationTime())
+                                      .build();
+        return ResponseEntity.ok(loginResponse);
     }
 }

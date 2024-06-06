@@ -1,5 +1,6 @@
 package com.famto.backend.service.impl;
 
+import com.famto.backend.dto.LoginUserDto;
 import com.famto.backend.dto.RegisterUserDto;
 import com.famto.backend.enums.Role;
 import com.famto.backend.model.User;
@@ -7,6 +8,7 @@ import com.famto.backend.repository.UserRepository;
 import com.famto.backend.service.IAuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,18 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .isBlocked(false)
                 .build();
         return userRepository.save(user);
+    }
+
+    @Override
+    public User authenticate(LoginUserDto input) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        input.getEmail(),
+                        input.getPassword()
+                )
+        );
+        return userRepository.findByEmail(input.getEmail())
+                .orElseThrow();
     }
 }
