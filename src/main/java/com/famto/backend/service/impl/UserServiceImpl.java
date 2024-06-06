@@ -1,6 +1,6 @@
 package com.famto.backend.service.impl;
 
-import com.famto.backend.model.User;
+import com.famto.backend.model.Merchant;
 import com.famto.backend.repository.UserRepository;
 import com.famto.backend.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<User> allUsers() {
+    public List<Merchant> allUsers() {
         return userRepository.findAll();
     }
 }

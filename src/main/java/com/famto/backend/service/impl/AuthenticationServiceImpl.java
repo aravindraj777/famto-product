@@ -3,7 +3,7 @@ package com.famto.backend.service.impl;
 import com.famto.backend.dto.LoginUserDto;
 import com.famto.backend.dto.RegisterUserDto;
 import com.famto.backend.enums.Role;
-import com.famto.backend.model.User;
+import com.famto.backend.model.Merchant;
 import com.famto.backend.repository.UserRepository;
 import com.famto.backend.service.IAuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User signup(RegisterUserDto input) {
-        User user = User.builder()
+    public Merchant signup(RegisterUserDto input) {
+        Merchant user = Merchant.builder()
                 .firstName(input.getFirstName())
                 .lastName(input.getLastName())
                 .email(input.getEmail())
@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     }
 
     @Override
-    public User authenticate(LoginUserDto input) {
+    public Merchant authenticate(LoginUserDto input) {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

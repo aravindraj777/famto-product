@@ -1,6 +1,6 @@
 package com.famto.backend.controller;
 
-import com.famto.backend.model.User;
+import com.famto.backend.model.Merchant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,9 +16,9 @@ public class MerchantController {
 
 
     @GetMapping("/demo")
-    public ResponseEntity<User> getDemo(){
+    public ResponseEntity<Merchant> getDemo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
+        Merchant currentUser = (Merchant) authentication.getPrincipal();
         return ResponseEntity.ok(currentUser);
     }
 }

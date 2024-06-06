@@ -2,11 +2,11 @@ package com.famto.backend.service;
 
 import com.famto.backend.dto.LoginUserDto;
 import com.famto.backend.dto.RegisterUserDto;
-import com.famto.backend.model.User;
+import com.famto.backend.model.Merchant;
 
 public interface IAuthenticationService {
 
-    User signup(RegisterUserDto input);
+    Merchant signup(RegisterUserDto input);
 
-    User authenticate(LoginUserDto input);
+    Merchant authenticate(LoginUserDto input);
 }

@@ -3,7 +3,7 @@ package com.famto.backend.controller;
 import com.famto.backend.dto.LoginResponse;
 import com.famto.backend.dto.LoginUserDto;
 import com.famto.backend.dto.RegisterUserDto;
-import com.famto.backend.model.User;
+import com.famto.backend.model.Merchant;
 import com.famto.backend.service.IAuthenticationService;
 import com.famto.backend.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +22,10 @@ public class AuthenticationController {
     private final IAuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<User> register(
+    public ResponseEntity<Merchant> register(
             @RequestBody RegisterUserDto registerUserDto){
 
-        User registeredUser = authenticationService.signup(registerUserDto);
+        Merchant registeredUser = authenticationService.signup(registerUserDto);
         return ResponseEntity.ok(registeredUser);
     }
 
@@ -33,7 +33,7 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponse> authenticate(
             @RequestBody LoginUserDto loginUserDto){
 
-        User authenticatedUser = authenticationService.authenticate(loginUserDto);
+        Merchant authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
         LoginResponse loginResponse = LoginResponse
                                       .builder()

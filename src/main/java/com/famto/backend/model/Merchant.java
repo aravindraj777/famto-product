@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails{
+public class Merchant implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

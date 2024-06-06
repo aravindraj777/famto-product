@@ -1,13 +1,12 @@
 package com.famto.backend.service;
 
-import com.famto.backend.model.User;
-import com.famto.backend.repository.UserRepository;
+import com.famto.backend.model.Merchant;
 
 import java.util.List;
 
 
 public interface IUserService {
 
-    List<User> allUsers();
+    List<Merchant> allUsers();
 
 }
