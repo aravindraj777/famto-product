@@ -1,6 +1,9 @@
 package com.famto.backend.config;
 
-import com.famto.backend.repository.UserRepository;
+import com.famto.backend.model.Admin;
+import com.famto.backend.model.Merchant;
+import com.famto.backend.repository.IAdminRepository;
+import com.famto.backend.repository.IMerchantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +19,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfiguration {
 
-    private final UserRepository userRepository;
+    private final IMerchantRepository merchantRepository;
+    private final IAdminRepository adminRepository;
 
     @Bean
     UserDetailsService userDetailsService(){
-        return username -> userRepository.findByEmail(username)
-                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        return username -> {
+            Admin admin = adminRepository.findByEmail(username).orElse(null);
+            if (admin != null) {
+                return admin;
+            }
+
+            Merchant merchant = merchantRepository.findByEmail(username).orElse(null);
+            if (merchant != null){
+                return merchant;
+            }
+            throw new UsernameNotFoundException("User not found with this email"+username);
+        };
     }
 
     @Bean

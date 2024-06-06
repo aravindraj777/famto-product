@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Merchant,Long> {
+public interface IMerchantRepository extends JpaRepository<Merchant,Long> {
 
     Optional<Merchant> findByEmail(String email);
 }

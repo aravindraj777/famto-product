@@ -1,5 +1,6 @@
 package com.famto.backend.controller;
 
+import com.famto.backend.model.Admin;
 import com.famto.backend.model.Merchant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,23 @@ public class MerchantController {
 
 
     @GetMapping("/demo")
-    public ResponseEntity<Merchant> getDemo(){
+    public ResponseEntity<Object> getDemo(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Admin currentUser = (Admin) authentication.getPrincipal();
+//        return ResponseEntity.ok(currentUser);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Merchant currentUser = (Merchant) authentication.getPrincipal();
-        return ResponseEntity.ok(currentUser);
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof Admin){
+            Admin currentUser = (Admin) principal;
+            return ResponseEntity.ok(currentUser);
+        } else if (principal instanceof Merchant) {
+            Merchant currentUser = (Merchant) principal;
+            return ResponseEntity.ok(currentUser);
+        }
+        else {
+            throw new IllegalStateException("User type unexpected"+principal.getClass());
+        }
     }
 }

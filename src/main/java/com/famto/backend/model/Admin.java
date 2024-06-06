@@ -1,6 +1,5 @@
 package com.famto.backend.model;
 
-
 import com.famto.backend.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,29 +17,15 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Merchant implements UserDetails{
+public class Admin implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String shopName;
-
-    @Column(unique = true,length = 100,nullable = false)
+    private String name;
     private String email;
-
-    @Column(unique = true,length = 20,nullable = false)
-    private Long phoneNumber;
-
-    @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
-    private String ownerName;
-
-    private Boolean isBlocked;
 
     @Enumerated(EnumType.STRING)
     private Role role;
