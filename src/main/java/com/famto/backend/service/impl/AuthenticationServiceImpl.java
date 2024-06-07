@@ -1,14 +1,17 @@
 package com.famto.backend.service.impl;
 
 import com.famto.backend.dto.LoginUserDto;
-import com.famto.backend.dto.RegisterUserDto;
+import com.famto.backend.dto.RegisterMerchantDto;
 import com.famto.backend.enums.Role;
+import com.famto.backend.exception.DuplicateEntryException;
 import com.famto.backend.model.Admin;
 import com.famto.backend.model.Merchant;
 import com.famto.backend.repository.IAdminRepository;
 import com.famto.backend.repository.IMerchantRepository;
 import com.famto.backend.service.IAuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,17 +29,27 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Merchant signup(RegisterUserDto input) {
-        Merchant merchant = Merchant.builder()
-                .shopName(input.getShopName())
-                .ownerName(input.getOwnerName())
-                .email(input.getEmail())
-                .phoneNumber(input.getPhoneNumber())
-                .password(passwordEncoder.encode(input.getPassword()))
-                .role(Role.MERCHANT)
-                .isBlocked(false)
-                .build();
-        return merchantRepository.save(merchant);
+    public Merchant registerMerchant(RegisterMerchantDto input) {
+        try {
+            Merchant merchant = Merchant.builder()
+                    .shopName(input.getShopName())
+                    .ownerName(input.getOwnerName())
+                    .email(input.getEmail())
+                    .phoneNumber(input.getPhoneNumber())
+                    .password(passwordEncoder.encode(input.getPassword()))
+                    .categoryName(input.getCategoryName())
+                    .role(Role.MERCHANT)
+                    .isBlocked(false)
+                    .build();
+            return merchantRepository.save(merchant);
+        }
+        catch (DataIntegrityViolationException e) {
+            if (e.getCause() instanceof ConstraintViolationException) {
+                throw new DuplicateEntryException("A merchant with this details already exists.");
+            }
+            throw e;
+        }
+
     }
 
     @Override

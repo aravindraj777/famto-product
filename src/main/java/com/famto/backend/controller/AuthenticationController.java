@@ -2,16 +2,13 @@ package com.famto.backend.controller;
 
 import com.famto.backend.dto.LoginResponse;
 import com.famto.backend.dto.LoginUserDto;
-import com.famto.backend.dto.RegisterUserDto;
-import com.famto.backend.model.Admin;
+import com.famto.backend.dto.RegisterMerchantDto;
 import com.famto.backend.model.Merchant;
 import com.famto.backend.service.IAuthenticationService;
 import com.famto.backend.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +27,10 @@ public class AuthenticationController {
     private final IAuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Merchant> register(
-            @RequestBody RegisterUserDto registerUserDto){
+    public ResponseEntity<Merchant> registerMerchant(
+            @RequestBody RegisterMerchantDto registerUserDto){
 
-        Merchant registeredUser = authenticationService.signup(registerUserDto);
+        Merchant registeredUser = authenticationService.registerMerchant(registerUserDto);
         return ResponseEntity.ok(registeredUser);
     }
 

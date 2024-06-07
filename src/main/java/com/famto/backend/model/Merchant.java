@@ -2,6 +2,7 @@ package com.famto.backend.model;
 
 
 import com.famto.backend.enums.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +38,9 @@ public class Merchant implements UserDetails{
     @Column(nullable = false)
     private String password;
 
+
+    private String categoryName;
+
     @Column(nullable = false)
     private String ownerName;
 
@@ -44,6 +48,10 @@ public class Merchant implements UserDetails{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "merchant",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Product> products;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
