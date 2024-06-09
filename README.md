@@ -56,5 +56,26 @@ This application allows an admin to manage merchants and merchants to manage the
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/aravindraj777/product-management.git
+   git clone https://github.com/aravindraj777/famto-product.git
    cd product-management
+
+2. **Configure the database**
+   
+3. **Build the project**
+     mvn clean install
+   
+4. **Run the application**
+     mvn spring-boot:run
+
+## API Endpoints
+For detailed API documentation, please refer to the Postman collection linked below.
+
+## Postman Collection
+The API endpoints are documented in a Postman collection. You can view and import the collection using the following link:
+
+  https://documenter.getpostman.com/view/27952189/2sA3XJkjtv
+
+
+
+
+    
