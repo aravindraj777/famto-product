@@ -6,12 +6,12 @@ This is a Product Management application built with Spring Boot (v3.3.0), MySQL 
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Technologies Used](#technologies-used)
+- [Technologies Used](#TechnologiesUsed)
 - [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [Database Schema](#database-schema)
-- [API Endpoints](#api-endpoints)
-- [Postman Collection](#postman-collection)
+- [Configuration](#Installation)
+- [Database Schema](#Installation)
+- [API Endpoints](#APIEndpoints)
+- [Postman Collection](#PostmanCollection)
 - [Security](#security)
 - [Contributing](#contributing)
 - [License](#license)
@@ -57,9 +57,10 @@ This application allows an admin to manage merchants and merchants to manage the
 
    ```bash
    git clone https://github.com/aravindraj777/famto-product.git
-   cd product-management
+   cd backend
 
 2. **Configure the database**
+    Configure your database in application.properties or application.yml file.
    
 3. **Build the project**
      mvn clean install
